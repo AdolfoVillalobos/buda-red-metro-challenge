@@ -18,11 +18,13 @@
         },
         "neighbors": {
           "type": "array",
+          "default": [],
           "description": "The neighbors of the metro station"
         },
         "color": {
           "type": "integer",
           "enum": [0, 1, 2],
+          "default": 0,
           "description": "The color of the metro station"
         }
       }
