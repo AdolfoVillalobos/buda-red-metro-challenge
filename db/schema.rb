@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_15_160554) do
+ActiveRecord::Schema.define(version: 2021_07_15_161411) do
+
+  create_table "edges", force: :cascade do |t|
+    t.integer "cost"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "source_id", null: false
+    t.integer "target_id", null: false
+    t.index ["source_id"], name: "index_edges_on_source_id"
+    t.index ["target_id"], name: "index_edges_on_target_id"
+  end
 
   create_table "metro_networks", force: :cascade do |t|
     t.string "name"
@@ -29,5 +39,7 @@ ActiveRecord::Schema.define(version: 2021_07_15_160554) do
     t.index ["metro_network_id"], name: "index_stations_on_metro_network_id"
   end
 
+  add_foreign_key "edges", "stations", column: "source_id"
+  add_foreign_key "edges", "stations", column: "target_id"
   add_foreign_key "stations", "metro_networks"
 end
