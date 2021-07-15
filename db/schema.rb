@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_15_151223) do
+ActiveRecord::Schema.define(version: 2021_07_15_160554) do
 
   create_table "metro_networks", force: :cascade do |t|
     t.string "name"
@@ -18,4 +18,16 @@ ActiveRecord::Schema.define(version: 2021_07_15_151223) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "stations", force: :cascade do |t|
+    t.string "name"
+    t.integer "color"
+    t.integer "status"
+    t.integer "distance_from_source"
+    t.integer "metro_network_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["metro_network_id"], name: "index_stations_on_metro_network_id"
+  end
+
+  add_foreign_key "stations", "metro_networks"
 end
