@@ -6,10 +6,13 @@ jobs:
         environment:
           RAILS_ENV: test
           BUNDLE_PATH: vendor/bundle
-      - image: postgres:11.3
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+      - image: postgres:12.3
 
     steps:
       - checkout
+      - run: bin/setup
 
       - restore_cache:
           keys:
