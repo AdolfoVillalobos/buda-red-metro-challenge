@@ -1,0 +1,2 @@
+class MetroNetwork < ApplicationRecord
+end
