@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "required": ["metroStations"],
+  "properties": {
+    "metroStations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/station"}
+    }
+  },
+  "$defs": {
+    "station": {
+      "type": "object",
+      "required": ["name", "neighbors", "color"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the metro station"
+        },
+        "neighbors": {
+          "type": "array",
+          "description": "The neighbors of the metro station"
+        },
+        "color": {
+          "type": "integer",
+          "enum": [0, 1, 2],
+          "description": "The color of the metro station"
+        }
+      }
+    }
+  }
+}
