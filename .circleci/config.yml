@@ -1,0 +1,52 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/ruby:2.7
+        environment:
+          RAILS_ENV: test
+          BUNDLE_PATH: vendor/bundle
+      - image: postgres:11.3
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - bundle-dependencies-{{ checksum "Gemfile.lock" }}
+            - bundle-dependencies-
+      - run:
+          name: Install bundle dependencies
+          command: |
+            BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")
+            gem install bundler:$BUNDLER_VERSION
+            bundle _$(echo $BUNDLER_VERSION)_ install
+
+      - save_cache:
+          key: bundle-dependencies-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - run:
+          name: Wait for postgres
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run:
+          name: Setup database
+          command: bundle exec rails db:create db:schema:load
+
+      - run:
+          name: Run rspec
+          command: |
+            RSPEC_JUNIT_ARGS="-r rspec_junit_formatter -f RspecJunitFormatter -o test_results/rspec.xml"
+            RSPEC_FORMAT_ARGS="-f progress --no-color -p 10"
+            bundle exec rspec spec $RSPEC_FORMAT_ARGS $RSPEC_JUNIT_ARGS
+
+      - store_test_results:
+          path: test_results
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test

@@ -94,11 +94,16 @@ GEM
     marcel (1.0.1)
     method_source (1.0.0)
     mini_mime (1.1.0)
+    mini_portile2 (2.5.3)
     minitest (5.14.4)
     msgpack (1.4.2)
     nio4r (2.5.7)
+    nokogiri (1.11.7)
+      mini_portile2 (~> 2.5.0)
+      racc (~> 1.4)
     nokogiri (1.11.7-x86_64-darwin)
       racc (~> 1.4)
+    pg (1.2.3)
     power-types (0.4.0)
       activesupport
     public_suffix (4.0.6)
@@ -178,6 +183,7 @@ GEM
     zeitwerk (2.4.2)
 
 PLATFORMS
+  ruby
   x86_64-darwin-20
 
 DEPENDENCIES
@@ -187,6 +193,7 @@ DEPENDENCIES
   factory_bot_rails
   json-schema
   listen (~> 3.3)
+  pg
   power-types
   puma (~> 5.0)
   rails (~> 6.1.4)
@@ -196,9 +203,6 @@ DEPENDENCIES
   spring
   sqlite3 (~> 1.4)
   tzinfo-data
-
-RUBY VERSION
-   ruby 3.0.0p0
 
 BUNDLED WITH
    2.2.21
