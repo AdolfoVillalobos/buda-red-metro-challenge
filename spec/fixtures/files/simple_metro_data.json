@@ -1,0 +1,19 @@
+{
+  "metroStations": [
+    {
+      "name": "A",
+      "neighbors": ["B", "C"],
+      "color": 0
+    },
+    {
+      "name": "B",
+      "neighbors": ["A", "C"],
+      "color": 1
+    },
+    {
+      "name": "C",
+      "neighbors": ["B", "A"],
+      "color": 2
+    }
+  ]
+}
